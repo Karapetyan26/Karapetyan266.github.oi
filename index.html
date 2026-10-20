@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Калькулятор стоимости услуги</title>
+    <script src="calc.js" defer></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 24px 16px;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            color: #1f2937;
+            background: linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #1e3a8a 100%);
+        }
+        footer {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            text-shadow: 0 1px 4px rgba(31, 41, 55, 0.4);
+        }
+        .card {
+            width: 100%;
+            max-width: 480px;
+            padding: 32px 28px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(31, 41, 55, 0.3);
+        }
+        h1 {
+            margin: 0 0 6px;
+            font-size: 26px;
+            text-align: center;
+        }
+        .subtitle {
+            margin: 0 0 24px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        fieldset {
+            margin: 0;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+        }
+        legend {
+            padding: 0 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+        .radio-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .radio-row label {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+            font-weight: 400;
+            cursor: pointer;
+        }
+        .radio-row input[type="radio"] {
+            width: auto;
+            margin: 0;
+            accent-color: #2563eb;
+        }
+        label {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 16px;
+            font-family: inherit;
+            color: #1f2937;
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+        }
+        .checkbox-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        .checkbox-row input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+            accent-color: #2563eb;
+        }
+        .hidden {
+            display: none;
+        }
+        #result {
+            margin-top: 22px;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            color: #78350f;
+            background: #fef3c7;
+            border-radius: 12px;
+        }
+        #result.error {
+            font-size: 15px;
+            color: #991b1b;
+            background: #fee2e2;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Калькулятор услуги</h1>
+        <p class="subtitle">Выберите тип услуги и укажите количество</p>
+        <form id="calc-form">
+            <fieldset>
+                <legend>Тип услуги</legend>
+                <div class="radio-row">
+                    <label>
+                        <input type="radio" name="service" value="basic" checked>
+                        Базовая консультация — 1000 ₽
+                    </label>
+                    <label>
+                        <input type="radio" name="service" value="standard">
+                        Стандартная услуга — 2000 ₽
+                    </label>
+                    <label>
+                        <input type="radio" name="service" value="premium">
+                        Премиум-услуга — 3000 ₽
+                    </label>
+                </div>
+            </fieldset>
+
+            <label for="quantity">
+                Количество
+                <input type="text" id="quantity" value="1" autocomplete="off" inputmode="numeric">
+            </label>
+
+            <label for="option" id="option-wrap" class="hidden">
+                Дополнительная опция
+                <select id="option">
+                    <option value="0">Без опции</option>
+                    <option value="500">Экспресс-выполнение (+500 ₽)</option>
+                    <option value="800">Расширенный отчёт (+800 ₽)</option>
+                    <option value="1200">Поддержка 24/7 (+1200 ₽)</option>
+                </select>
+            </label>
+
+            <label class="checkbox-row hidden" id="property-wrap">
+                <input type="checkbox" id="property">
+                Приоритетное обслуживание (+700 ₽)
+            </label>
+        </form>
+        <div id="result" aria-live="polite"></div>
+    </main>
+    <footer>Карапетян Кристина</footer>
+</body>
+</html>
